@@ -1,0 +1,69 @@
+#! /usr/local/Cellar/icarus-verilog/10.3/bin/vvp
+:ivl_version "10.3 (stable)" "(v10_3)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7fd18840a260 .scope module, "Counter_N_bit" "Counter_N_bit" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "CE"
+    .port_info 1 /INPUT 1 "reset"
+    .port_info 2 /INPUT 1 "clock"
+    .port_info 3 /INPUT 1 "load"
+    .port_info 4 /INPUT 9 "Data_in"
+    .port_info 5 /OUTPUT 9 "count"
+P_0x7fd188406be0 .param/l "N" 0 2 4, +C4<00000000000000000000000000001001>;
+o0x7fd188532008 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd18840a4d0_0 .net "CE", 0 0, o0x7fd188532008;  0 drivers
+o0x7fd188532038 .functor BUFZ 9, C4<zzzzzzzzz>; HiZ drive
+v0x7fd18841a390_0 .net "Data_in", 8 0, o0x7fd188532038;  0 drivers
+o0x7fd188532068 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd18841a430_0 .net "clock", 0 0, o0x7fd188532068;  0 drivers
+v0x7fd18841a4e0_0 .var "count", 8 0;
+o0x7fd1885320c8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd18841a580_0 .net "load", 0 0, o0x7fd1885320c8;  0 drivers
+o0x7fd1885320f8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd18841a660_0 .net "reset", 0 0, o0x7fd1885320f8;  0 drivers
+E_0x7fd188406fa0 .event posedge, v0x7fd18841a430_0, v0x7fd18841a660_0;
+    .scope S_0x7fd18840a260;
+T_0 ;
+    %wait E_0x7fd188406fa0;
+    %load/vec4 v0x7fd18841a660_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %jmp/0xz  T_0.0, 4;
+    %pushi/vec4 0, 0, 9;
+    %store/vec4 v0x7fd18841a4e0_0, 0, 9;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v0x7fd18840a4d0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_0.2, 4;
+    %load/vec4 v0x7fd18841a4e0_0;
+    %store/vec4 v0x7fd18841a4e0_0, 0, 9;
+    %jmp T_0.3;
+T_0.2 ;
+    %load/vec4 v0x7fd18841a580_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %jmp/0xz  T_0.4, 4;
+    %load/vec4 v0x7fd18841a390_0;
+    %store/vec4 v0x7fd18841a4e0_0, 0, 9;
+    %jmp T_0.5;
+T_0.4 ;
+    %load/vec4 v0x7fd18841a4e0_0;
+    %addi 1, 0, 9;
+    %store/vec4 v0x7fd18841a4e0_0, 0, 9;
+T_0.5 ;
+T_0.3 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "Counter_N_bit.v";

@@ -1,0 +1,158 @@
+#! /usr/local/Cellar/icarus-verilog/10.3/bin/vvp
+:ivl_version "10.3 (stable)" "(v10_3)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7fec9c405c10 .scope module, "Hazard_Detection" "Hazard_Detection" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "IDBranch"
+    .port_info 1 /INPUT 1 "IDEXRegWrite"
+    .port_info 2 /INPUT 1 "EXMEMRegWrite"
+    .port_info 3 /INPUT 5 "EXDst"
+    .port_info 4 /INPUT 5 "EXMEMDst"
+    .port_info 5 /INPUT 1 "IDEXMemRead"
+    .port_info 6 /INPUT 5 "IDEXRt"
+    .port_info 7 /INPUT 5 "IDRs"
+    .port_info 8 /INPUT 5 "IDRt"
+    .port_info 9 /OUTPUT 1 "PCWrite"
+    .port_info 10 /OUTPUT 1 "IFIDWrite"
+    .port_info 11 /OUTPUT 1 "Hazard"
+    .port_info 12 /INPUT 1 "EXMEMMemRead"
+o0x7fec9d932008 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c405fc0_0 .net "EXDst", 4 0, o0x7fec9d932008;  0 drivers
+o0x7fec9d932038 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c416070_0 .net "EXMEMDst", 4 0, o0x7fec9d932038;  0 drivers
+o0x7fec9d932068 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fec9c416120_0 .net "EXMEMMemRead", 0 0, o0x7fec9d932068;  0 drivers
+o0x7fec9d932098 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fec9c4161d0_0 .net "EXMEMRegWrite", 0 0, o0x7fec9d932098;  0 drivers
+v0x7fec9c416270_0 .var "Hazard", 0 0;
+o0x7fec9d9320f8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fec9c416350_0 .net "IDBranch", 0 0, o0x7fec9d9320f8;  0 drivers
+o0x7fec9d932128 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fec9c4163f0_0 .net "IDEXMemRead", 0 0, o0x7fec9d932128;  0 drivers
+o0x7fec9d932158 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fec9c416490_0 .net "IDEXRegWrite", 0 0, o0x7fec9d932158;  0 drivers
+o0x7fec9d932188 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c416530_0 .net "IDEXRt", 4 0, o0x7fec9d932188;  0 drivers
+o0x7fec9d9321b8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c416640_0 .net "IDRs", 4 0, o0x7fec9d9321b8;  0 drivers
+o0x7fec9d9321e8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c4166f0_0 .net "IDRt", 4 0, o0x7fec9d9321e8;  0 drivers
+o0x7fec9d932218 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c4167a0_0 .net "IFIDRs", 4 0, o0x7fec9d932218;  0 drivers
+o0x7fec9d932248 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0x7fec9c416850_0 .net "IFIDRt", 4 0, o0x7fec9d932248;  0 drivers
+v0x7fec9c416900_0 .var "IFIDWrite", 0 0;
+v0x7fec9c4169a0_0 .var "PCWrite", 0 0;
+v0x7fec9c416a40_0 .var "forward1", 1 0;
+v0x7fec9c416af0_0 .var "forward2", 1 0;
+E_0x7fec9c405f20 .event edge, v0x7fec9c416350_0, v0x7fec9c416120_0, v0x7fec9c4161d0_0;
+E_0x7fec9c405f50/0 .event edge, v0x7fec9c416490_0, v0x7fec9c416350_0, v0x7fec9c416120_0, v0x7fec9c4166f0_0;
+E_0x7fec9c405f50/1 .event edge, v0x7fec9c416640_0, v0x7fec9c416530_0, v0x7fec9c4163f0_0;
+E_0x7fec9c405f50 .event/or E_0x7fec9c405f50/0, E_0x7fec9c405f50/1;
+    .scope S_0x7fec9c405c10;
+T_0 ;
+    %wait E_0x7fec9c405f50;
+    %load/vec4 v0x7fec9c4163f0_0;
+    %load/vec4 v0x7fec9c416530_0;
+    %load/vec4 v0x7fec9c416640_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %load/vec4 v0x7fec9c416530_0;
+    %load/vec4 v0x7fec9c4166f0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %or;
+    %and;
+    %flag_set/vec4 8;
+    %load/vec4 v0x7fec9c416120_0;
+    %load/vec4 v0x7fec9c416350_0;
+    %and;
+    %load/vec4 v0x7fec9c416070_0;
+    %load/vec4 v0x7fec9c416640_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %load/vec4 v0x7fec9c416070_0;
+    %load/vec4 v0x7fec9c4166f0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %or;
+    %and;
+    %flag_set/vec4 9;
+    %flag_or 9, 8;
+    %load/vec4 v0x7fec9c416490_0;
+    %load/vec4 v0x7fec9c416350_0;
+    %and;
+    %load/vec4 v0x7fec9c405fc0_0;
+    %load/vec4 v0x7fec9c416640_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %load/vec4 v0x7fec9c405fc0_0;
+    %load/vec4 v0x7fec9c4166f0_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %or;
+    %and;
+    %flag_set/vec4 8;
+    %flag_or 8, 9;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x7fec9c4169a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x7fec9c416900_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x7fec9c416270_0, 0, 1;
+    %jmp T_0.1;
+T_0.0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x7fec9c4169a0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x7fec9c416900_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x7fec9c416270_0, 0, 1;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x7fec9c405c10;
+T_1 ;
+    %wait E_0x7fec9c405f20;
+    %load/vec4 v0x7fec9c4161d0_0;
+    %load/vec4 v0x7fec9c416120_0;
+    %nor/r;
+    %and;
+    %load/vec4 v0x7fec9c416350_0;
+    %and;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %load/vec4 v0x7fec9c416070_0;
+    %load/vec4 v0x7fec9c416640_0;
+    %cmp/e;
+    %jmp/0xz  T_1.2, 4;
+    %pushi/vec4 1, 0, 2;
+    %store/vec4 v0x7fec9c416a40_0, 0, 2;
+T_1.2 ;
+    %load/vec4 v0x7fec9c416070_0;
+    %load/vec4 v0x7fec9c4166f0_0;
+    %cmp/e;
+    %jmp/0xz  T_1.4, 4;
+    %pushi/vec4 1, 0, 2;
+    %store/vec4 v0x7fec9c416af0_0, 0, 2;
+T_1.4 ;
+    %jmp T_1.1;
+T_1.0 ;
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0x7fec9c416a40_0, 0, 2;
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0x7fec9c416af0_0, 0, 2;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "Hazard_Detection.v";
